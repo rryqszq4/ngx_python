@@ -1,1 +1,1 @@
-# python-nginx-module
+# ngx_py
