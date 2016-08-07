@@ -24,7 +24,7 @@ static void *ngx_http_py_create_loc_conf(ngx_conf_t *cf);
 static char *ngx_http_py_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child);
 
 static ngx_int_t ngx_http_py_init_worker(ngx_cycle_t *cycle);
-static void ngx_http_php_exit_worker(ngx_cycle_t *cycle);
+static void ngx_http_py_exit_worker(ngx_cycle_t *cycle);
 
 static ngx_command_t ngx_http_py_commands[] = {
 
@@ -232,7 +232,7 @@ ngx_http_py_init_worker(ngx_cycle_t *cycle)
 {
     ngx_http_py_main_conf_t *pmcf;
 
-    pmcf = ngx_http_cycle_get_module_main_conf(cycle, ngx_http_php_module);
+    pmcf = ngx_http_cycle_get_module_main_conf(cycle, ngx_http_py_module);
 
     Py_Initialize();
 
