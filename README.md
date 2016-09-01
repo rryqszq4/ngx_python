@@ -1,1 +1,1 @@
-# ngx_py
+# ngx_python
