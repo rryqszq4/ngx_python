@@ -1,0 +1,13 @@
+ngx_addon_name=ngx_http_python_module
+HTTP_MODULES="$HTTP_MODULES ngx_http_python_module"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_python_module.c"
+
+NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/src/ngx_http_python_module.h"
+
+#CORE_INCS="$CORE_INCS $PYTHON_INC "
+
+#CORE_LIBS="$CORE_LIBS `$PYTHON_BIN/python-config --ldflags` "
+
+CORE_INCS="$CORE_INCS /usr/local/include/python2.7 "
+
+CORE_LIBS="$CORE_LIBS `/usr/local/bin/python-config --ldflags` "
