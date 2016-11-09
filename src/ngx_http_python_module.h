@@ -12,6 +12,8 @@
 #include <ngx_config.h>
 #include <nginx.h>
 
+#include "ngx_http_python_code.h"
+
 #define MODULE_NAME "ngx_python"
 #define MODULE_VERSION "0.0.1"
 
@@ -19,11 +21,11 @@ extern ngx_module_t ngx_http_python_module;
 ngx_http_request_t *ngx_python_request;
 
 typedef struct {
-    unsigned enable_content_handler:1;
+    unsigned enabled_content_handler:1;
 } ngx_http_python_main_conf_t;
 
 typedef struct {
-    ngx_http_python_code_t *content_file;
+    ngx_http_python_code_t *content_code;
     ngx_http_python_code_t *content_inline_code;
 } ngx_http_python_loc_conf_t;
 

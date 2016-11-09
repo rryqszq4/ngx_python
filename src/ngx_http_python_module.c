@@ -13,9 +13,10 @@
 #include <nginx.h>
 
 #include "ngx_http_python_module.h"
+#include "ngx_http_python_directive.h"
 
 static ngx_int_t ngx_http_python_init(ngx_conf_t *cf);
-static ngx_int_t ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_py_main_conf_t *pmcf);
+static ngx_int_t ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_python_main_conf_t *pmcf);
 
 static void *ngx_http_python_create_main_conf(ngx_conf_t *cf);
 static char *ngx_http_python_init_main_conf(ngx_conf_t *cf, void *conf);
@@ -34,7 +35,7 @@ static ngx_command_t ngx_http_python_commands[] = {
      ngx_http_python_content_phase,
      NGX_HTTP_LOC_CONF_OFFSET,
      0,
-     ngx_http_py_content_file_handler
+     ngx_http_python_content_file_handler
     },
 
     {ngx_string("content_by_python"),
