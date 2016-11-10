@@ -16,6 +16,8 @@
 #include "ngx_http_python_directive.h"
 #include "ngx_http_python_handler.h"
 
+#include "python/python_ngx.h"
+
 static ngx_int_t ngx_http_python_init(ngx_conf_t *cf);
 static ngx_int_t ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_python_main_conf_t *pmcf);
 
@@ -237,6 +239,8 @@ ngx_http_python_init_worker(ngx_cycle_t *cycle)
     pmcf = ngx_http_cycle_get_module_main_conf(cycle, ngx_http_python_module);
 
     Py_Initialize();
+
+    initNgx();
 
     return NGX_OK;
 }

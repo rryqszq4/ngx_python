@@ -6,6 +6,8 @@
 
 #include <Python.h>
 
+
+
 #include "ngx_http_python_handler.h"
 #include "ngx_http_python_module.h"
 
@@ -130,7 +132,9 @@ ngx_http_python_content_inline_handler(ngx_http_request_t *r)
     ngx_python_request = r;
 
     PyRun_SimpleString("from time import time,ctime\n"
-                     "print 'Today is',ctime(time())\n");
+                     "import ngx\n"
+                     "print 'Today is',ctime(time())\n"
+                     "ngx.echo('abc')\n");
 
     ngx_http_python_rputs_chain_list_t *chain;
     
