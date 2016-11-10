@@ -52,7 +52,7 @@ ngx_http_python_content_inline_phase(ngx_conf_t *cf, ngx_command_t *cmd, void *c
         return NGX_CONF_ERROR;
     }
 
-    pmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_php_module);
+    pmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_python_module);
     plcf = conf;
 
     if (plcf->content_handler != NULL){

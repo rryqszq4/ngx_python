@@ -27,6 +27,8 @@ typedef struct {
 typedef struct {
     ngx_http_python_code_t *content_code;
     ngx_http_python_code_t *content_inline_code;
+
+    ngx_int_t (*content_handler)(ngx_http_request_t *r);
 } ngx_http_python_loc_conf_t;
 
 #endif

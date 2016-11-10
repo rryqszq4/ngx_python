@@ -3,17 +3,19 @@ HTTP_MODULES="$HTTP_MODULES ngx_http_python_module"
 NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_python_module.c \
                                 $ngx_addon_dir/src/ngx_http_python_code.c \
                                 $ngx_addon_dir/src/ngx_http_python_directive.c \
+                                $ngx_addon_dir/src/ngx_http_python_handler.c \
                                 "
 
 NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/src/ngx_http_python_module.h \
                                 $ngx_addon_dir/src/ngx_http_python_code.h \
                                 $ngx_addon_dir/src/ngx_http_python_directive.h \
+                                $ngx_addon_dir/src/ngx_http_python_handler.h \
                                 "
 
-#CORE_INCS="$CORE_INCS $PYTHON_INC "
+CORE_INCS="$CORE_INCS $PYTHON_INC "
 
-#CORE_LIBS="$CORE_LIBS `$PYTHON_BIN/python-config --ldflags` "
+CORE_LIBS="$CORE_LIBS `$PYTHON_BIN/python-config --ldflags` "
 
-CORE_INCS="$CORE_INCS /usr/local/include/python2.7 "
+#CORE_INCS="$CORE_INCS /usr/local/include/python2.7 "
 
-CORE_LIBS="$CORE_LIBS `/usr/local/bin/python-config --ldflags` "
+#CORE_LIBS="$CORE_LIBS `/usr/local/bin/python-config --ldflags` "

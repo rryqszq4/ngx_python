@@ -14,6 +14,7 @@
 
 #include "ngx_http_python_module.h"
 #include "ngx_http_python_directive.h"
+#include "ngx_http_python_handler.h"
 
 static ngx_int_t ngx_http_python_init(ngx_conf_t *cf);
 static ngx_int_t ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_python_main_conf_t *pmcf);
@@ -61,7 +62,7 @@ static ngx_http_module_t ngx_http_python_module_ctx = {
     NULL,                           /* create server configuration */
     NULL,                           /* merge server configuration */
 
-    ngx_http_python_create_main_conf,   /* create location configuration */
+    ngx_http_python_create_loc_conf,   /* create location configuration */
     ngx_http_python_merge_loc_conf      /* merge location configuration */
 };
 
@@ -99,7 +100,7 @@ ngx_http_python_init(ngx_conf_t *cf)
 }
 
 static ngx_int_t
-ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_py_main_conf_t *pmcf)
+ngx_http_python_handler_init(ngx_http_core_main_conf_t *cmcf, ngx_http_python_main_conf_t *pmcf)
 {
     ngx_int_t i;
     ngx_http_handler_pt *h;
@@ -201,7 +202,7 @@ ngx_http_python_create_loc_conf(ngx_conf_t *cf)
     //plcf->access_code = NGX_CONF_UNSET_PTR;
     //plcf->access_inline_code = NGX_CONF_UNSET_PTR;
 
-    plcf->content_file = NGX_CONF_UNSET_PTR;
+    plcf->content_code = NGX_CONF_UNSET_PTR;
     plcf->content_inline_code = NGX_CONF_UNSET_PTR;
 
     return plcf;
@@ -222,7 +223,7 @@ ngx_http_python_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
     //prev->access_code = conf->access_code;
     //prev->access_inline_code = conf->access_inline_code;
 
-    prev->content_file = conf->content_file;
+    prev->content_code = conf->content_code;
     prev->content_inline_code = conf->content_inline_code;
 
     return NGX_CONF_OK;
