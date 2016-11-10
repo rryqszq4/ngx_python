@@ -59,7 +59,7 @@ ngx_echo(PyObject *self, PyObject *args)
         r->headers_out.content_length_n += ns.len;
     }
 
-    return NULL;
+    return Py_BuildValue("i", r->headers_out.content_length_n);;
 }
 
 static PyMethodDef NgxMethods[]={

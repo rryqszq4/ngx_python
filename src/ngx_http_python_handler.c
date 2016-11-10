@@ -27,7 +27,7 @@ ngx_http_python_content_file_handler(ngx_http_request_t *r)
 {
 
     //ngx_http_python_main_conf_t *pmcf = ngx_http_get_module_main_conf(r, ngx_http_python_module);
-    //ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
+    ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
     ngx_http_python_ctx_t *ctx = ngx_http_get_module_ctx(r, ngx_http_python_module);
 
     ngx_int_t rc;
@@ -42,8 +42,9 @@ ngx_http_python_content_file_handler(ngx_http_request_t *r)
 
     ngx_python_request = r;
 
-    PyRun_SimpleString("from time import time,ctime\n"
-                     "print 'Today is',ctime(time())\n");
+    FILE * fp = fopen(plcf->content_code->code.file, "r");        
+       
+    PyRun_SimpleFile(fp, plcf->content_code->code.file);
 
     ngx_http_python_rputs_chain_list_t *chain;
     
@@ -113,7 +114,7 @@ ngx_http_python_content_inline_handler(ngx_http_request_t *r)
 {
 
     //ngx_http_python_main_conf_t *pmcf = ngx_http_get_module_main_conf(r, ngx_http_python_module);
-    //ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
+    ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
 
     ngx_int_t rc;
     ngx_http_python_ctx_t *ctx;
@@ -131,10 +132,7 @@ ngx_http_python_content_inline_handler(ngx_http_request_t *r)
 
     ngx_python_request = r;
 
-    PyRun_SimpleString("from time import time,ctime\n"
-                     "import ngx\n"
-                     "print 'Today is',ctime(time())\n"
-                     "ngx.echo('abc')\n");
+    PyRun_SimpleString(plcf->content_inline_code->code.string);
 
     ngx_http_python_rputs_chain_list_t *chain;
     
