@@ -56,7 +56,6 @@ ngx.echo('Hello, ngx_python at ' + ctime(time()))
             ";
         }
     }
-    }
 }
 ```
 
