@@ -47,8 +47,10 @@ http {
     
         location /content_by_python {
             content_by_python "
+from time import time,ctime
 import ngx
-ngx.echo('Hello, ngx_python')
+
+ngx.echo('Hello, ngx_python at ' + ctime(time()))
             ";
         }
     }
