@@ -52,11 +52,26 @@ http {
 from time import time,ctime
 import ngx
 
-ngx.echo('Hello, ngx_python at ' + ctime(time()))
+ngx.echo('Hello, Ngx_Python at ' + ctime(time()))
             ";
+
+            content_by_python_file /ngx_python/t/library/hello.py
         }
     }
 }
+```
+
+example
+
+```sh
+$ curl http://localhost/content_by_python
+$ Hello, ngx_python at Thu Dec  1 00:38:02 2016
+$
+$
+$ curl http://localhost/content_by_python_file
+$ Hello, Ngx_Python
+$ 
+$ 
 ```
 
 Copyright and License
