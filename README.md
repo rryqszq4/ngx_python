@@ -64,18 +64,19 @@ ngx.echo('Hello, Ngx_Python at ' + ctime(time()))
 example
 
 ```sh
+$ 
 $ curl http://localhost/content_by_python
 $ Hello, ngx_python at Thu Dec  1 00:38:02 2016
 $
-$
 $ curl http://localhost/content_by_python_file
 $ Hello, Ngx_Python
-$ 
 $ 
 ```
 
 Copyright and License
 ---------------------
+BSD 3-Clause License
+
 Copyright (c) 2016, rryqszq4
 All rights reserved.
 
