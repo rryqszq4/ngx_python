@@ -52,7 +52,10 @@ http {
 from time import time,ctime
 import ngx
 
-ngx.echo('Hello, Ngx_Python at ' + ctime(time()))
+ngx.echo('Hello, Ngx_Python at ' + ctime(time()) + '\\n')
+
+a = [1,2,3,4,5]
+ngx.echo(a)
             ";
 
             content_by_python_file /ngx_python/t/library/hello.py
@@ -64,13 +67,13 @@ ngx.echo('Hello, Ngx_Python at ' + ctime(time()))
 example
 
 ```sh
-$ 
 $ curl http://localhost/content_by_python
 $ Hello, ngx_python at Thu Dec  1 00:38:02 2016
-$
+$ [1, 2, 3, 4, 5]
+
 $ curl http://localhost/content_by_python_file
 $ Hello, Ngx_Python
-$ 
+ 
 ```
 
 Copyright and License
