@@ -57,8 +57,10 @@ ngx.echo('Hello, Ngx_Python at ' + ctime(time()) + '\\n')
 a = [1,2,3,4,5]
 ngx.echo(a)
             ";
+        }
 
-            content_by_python_file /ngx_python/t/library/hello.py
+        location /content_by_python_file {
+            content_by_python_file /ngx_python/t/library/hello.py;
         }
     }
 }
