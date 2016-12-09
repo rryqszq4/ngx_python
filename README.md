@@ -28,7 +28,7 @@ $ make install
 
 Synopsis
 --------
-
+nginx config:
 ```nginx
 user www www;
 worker_processes  4;
@@ -56,6 +56,8 @@ ngx.echo('Hello, Ngx_Python at ' + ctime(time()) + '\\n')
 
 a = [1,2,3,4,5]
 ngx.echo(a)
+
+ngx.echo('\\n'+str(type(a)))
             ";
         }
 
@@ -66,16 +68,17 @@ ngx.echo(a)
 }
 ```
 
-example
+execute:
 
 ```sh
 $ curl http://localhost/content_by_python
-$ Hello, ngx_python at Thu Dec  1 00:38:02 2016
-$ [1, 2, 3, 4, 5]
+Hello, ngx_python at Thu Dec  1 00:38:02 2016
+[1, 2, 3, 4, 5]
+<type 'list'>
 
 $ curl http://localhost/content_by_python_file
-$ Hello, Ngx_Python
- 
+Hello, Ngx_Python
+
 ```
 
 Copyright and License
