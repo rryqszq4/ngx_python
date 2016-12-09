@@ -28,8 +28,11 @@ ngx_echo(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    ns.len = PyBytes_GET_SIZE(object);
-    ns.data = (u_char *)PyBytes_AS_STRING(object);
+    PyObject *s;
+    s = PyObject_Str(object);
+
+    ns.len = PyBytes_GET_SIZE(s);
+    ns.data = (u_char *)PyBytes_AS_STRING(s);
 
     if (ctx->rputs_chain == NULL){
         chain = ngx_pcalloc(r->pool, sizeof(ngx_http_python_rputs_chain_list_t));
