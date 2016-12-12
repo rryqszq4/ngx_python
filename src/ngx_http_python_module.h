@@ -14,8 +14,8 @@
 
 #include "ngx_http_python_code.h"
 
-#define MODULE_NAME "ngx_python"
-#define MODULE_VERSION "0.0.1"
+#define NGX_HTTP_PYTHON_MODULE_NAME "ngx_python"
+#define NGX_HTTP_PYTHON_MODULE_VERSION "0.0.1"
 
 extern ngx_module_t ngx_http_python_module;
 ngx_http_request_t *ngx_python_request;
