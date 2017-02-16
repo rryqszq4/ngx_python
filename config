@@ -4,12 +4,14 @@ NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_python_module.c \
                                 $ngx_addon_dir/src/ngx_http_python_code.c \
                                 $ngx_addon_dir/src/ngx_http_python_directive.c \
                                 $ngx_addon_dir/src/ngx_http_python_handler.c \
+                                $ngx_addon_dir/src/python/python_ngx.c \
                                 "
 
 NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/src/ngx_http_python_module.h \
                                 $ngx_addon_dir/src/ngx_http_python_code.h \
                                 $ngx_addon_dir/src/ngx_http_python_directive.h \
                                 $ngx_addon_dir/src/ngx_http_python_handler.h \
+                                $ngx_addon_dir/src/python/python_ngx.h \
                                 "
 
 CORE_INCS="$CORE_INCS $PYTHON_INC "
