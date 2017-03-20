@@ -72,5 +72,26 @@ static PyMethodDef NgxMethods[]={
 
 void initNgx()
 {
-    Py_InitModule("ngx",NgxMethods);
+    PyObject    *mo;
+
+    mo = Py_InitModule("ngx",NgxMethods);
+
+    PyModule_AddIntConstant(mo, "OK", NGX_OK);
+    PyModule_AddIntConstant(mo, "ERROR", NGX_ERROR);
+    PyModule_AddIntConstant(mo, "AGAIN", NGX_AGAIN);
+    PyModule_AddIntConstant(mo, "BUSY", NGX_BUSY);
+    PyModule_AddIntConstant(mo, "DONE", NGX_DONE);
+    PyModule_AddIntConstant(mo, "DECLINED", NGX_DECLINED);
+    PyModule_AddIntConstant(mo, "ABORT", NGX_ABORT);
+
+    PyModule_AddIntConstant(mo, "LOG_STDERR", NGX_LOG_STDERR);
+    PyModule_AddIntConstant(mo, "LOG_EMERG", NGX_LOG_EMERG);
+    PyModule_AddIntConstant(mo, "LOG_ALERT", NGX_LOG_ALERT);
+    PyModule_AddIntConstant(mo, "LOG_CRIT", NGX_LOG_CRIT);
+    PyModule_AddIntConstant(mo, "LOG_ERR", NGX_LOG_ERR);
+    PyModule_AddIntConstant(mo, "LOG_WARN", NGX_LOG_WARN);
+    PyModule_AddIntConstant(mo, "LOG_NOTICE", NGX_LOG_NOTICE);
+    PyModule_AddIntConstant(mo, "LOG_INFO", NGX_LOG_INFO);
+    PyModule_AddIntConstant(mo, "LOG_DEBUG", NGX_LOG_DEBUG);
+
 }
