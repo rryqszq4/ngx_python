@@ -29,7 +29,7 @@ NGINX_SRC=`pwd`'/nginx-'${NGINX_SRC_VERSION}
 NGINX_SRC_ROOT=`pwd`'/nginx'
 cd ${NGINX_SRC}
 
-export PYTHON_INC=${PYTHON_SRC_ROOT}'include/python2.7'
+export PYTHON_INC=${PYTHON_SRC_ROOT}'/include/python2.7'
 export PYTHON_BIN=${PYTHON_SRC_ROOT}'/bin'
 
 ls ${PYTHON_SRC_ROOT}
