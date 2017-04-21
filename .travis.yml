@@ -1,0 +1,41 @@
+language: c
+sudo: required
+addons:
+  apt:
+    packages:
+      - locales
+      - language-pack-de
+      - re2c
+      - libgmp-dev
+      - libicu-dev
+      - libmcrypt-dev
+      - libtidy-dev
+      - libenchant-dev
+      - libaspell-dev
+      - libpspell-dev
+      - librecode-dev
+      - libsasl2-dev
+      - libxpm-dev
+      - libt1-dev
+      - cpanminus
+compiler:
+  - gcc
+cache:
+  - apt
+env:
+  - PYTHON_SRC_VERSION=2.7.13
+    NGINX_SRC_VERSION=1.7.12
+  - PYTHON_SRC_VERSION=2.7.13
+    NGINX_SRC_VERSION=1.8.1
+  - PYTHON_SRC_VERSION=2.7.13
+    NGINX_SRC_VERSION=1.9.15
+  - PYTHON_SRC_VERSION=2.7.13
+    NGINX_SRC_VERSION=1.10.2
+  - PYTHON_SRC_VERSION=2.7.13
+    NGINX_SRC_VERSION=1.11.8
+install:
+  - sudo cpanm -n Test::Nginx
+before_script:
+  - ./travis/compile.sh
+script:
+  - echo ngx_python
