@@ -21,14 +21,26 @@ extern ngx_module_t ngx_http_python_module;
 ngx_http_request_t *ngx_python_request;
 
 typedef struct {
+    unsigned enabled_rewrite_handler:1;
+    unsigned enabled_access_handler:1;
     unsigned enabled_content_handler:1;
+    unsigned enabled_log_handler:1;
 } ngx_http_python_main_conf_t;
 
 typedef struct {
-    ngx_http_python_code_t *content_code;
+    ngx_http_python_code_t *rewrite_file_code;
+    ngx_http_python_code_t *rewrite_inline_code;
+    ngx_http_python_code_t *access_file_code;
+    ngx_http_python_code_t *access_inline_code;
+    ngx_http_python_code_t *content_file_code;
     ngx_http_python_code_t *content_inline_code;
+    ngx_http_python_code_t *log_file_code;
+    ngx_http_python_code_t *log_inline_code;
 
+    ngx_int_t (*rewrite_handler)(ngx_http_request_t *r);
+    ngx_int_t (*access_handler)(ngx_http_request_t *r);
     ngx_int_t (*content_handler)(ngx_http_request_t *r);
+    ngx_int_t (*log_handler)(ngx_http_request_t *r);
 } ngx_http_python_loc_conf_t;
 
 #endif
