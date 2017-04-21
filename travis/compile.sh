@@ -7,7 +7,7 @@ mkdir nginx
 echo "python download ..."
 wget https://www.python.org/ftp/python/${PYTHON_SRC_VERSION}/Python-${PYTHON_SRC_VERSION}.tgz
 echo "python download ... done"
-tar -xf Python-${PYTHON_SRC_VERSION}.tar.gz
+tar -xf Python-${PYTHON_SRC_VERSION}.tgz
 
 PYTHON_SRC=`pwd`'/Python-'${PYTHON_SRC_VERSION}
 PYTHON_SRC_ROOT=`pwd`'/python'
