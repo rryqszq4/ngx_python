@@ -62,11 +62,31 @@ ngx_echo(PyObject *self, PyObject *args)
         r->headers_out.content_length_n += ns.len;
     }
 
-    return Py_BuildValue("i", r->headers_out.content_length_n);;
+    return Py_BuildValue("i", r->headers_out.content_length_n);
+}
+
+static PyObject *
+ngx_exit(PyObject *self, PyObject *args)
+{
+    PyObject *exit_code = 0;
+    
+    ngx_http_python_ctx_t *ctx;
+    ngx_http_request_t *r;
+
+    r = ngx_python_request;
+    ctx = ngx_http_get_module_ctx(r, ngx_http_python_module);
+
+    if (!PyArg_UnpackTuple(args, "exit", -10, 600, &exit_code))
+        return NULL;
+    
+    ctx->exit_code = (ngx_int_t )PyInt_AsLong(exit_code);
+
+    return exit_code;
 }
 
 static PyMethodDef NgxMethods[]={
     {"echo", ngx_echo, METH_VARARGS, "ngx.echo"},
+    {"exit", ngx_exit, METH_VARARGS, "ngx.exit"},
     {NULL, NULL, 0, NULL}
 };
 

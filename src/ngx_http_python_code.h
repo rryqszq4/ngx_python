@@ -32,6 +32,8 @@ typedef struct ngx_http_python_rputs_chain_list_t {
 typedef struct ngx_http_python_ctx_t {
     ngx_http_python_rputs_chain_list_t *rputs_chain;
     unsigned request_body_more : 1;
+
+    ngx_int_t exit_code;
     
 } ngx_http_python_ctx_t;
 
