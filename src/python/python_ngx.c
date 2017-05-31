@@ -75,13 +75,14 @@ ngx_exit(PyObject *self, PyObject *args)
 
     r = ngx_python_request;
     ctx = ngx_http_get_module_ctx(r, ngx_http_python_module);
-
-    if (!PyArg_UnpackTuple(args, "exit", -10, 600, &exit_code))
-        return NULL;
     
-    ctx->exit_code = (ngx_int_t )PyInt_AsLong(exit_code);
+    if (!PyArg_ParseTuple(args, "l", &exit_code)){
+        return NULL;
+    }
 
-    return exit_code;
+    ctx->exit_code = (ngx_int_t )(exit_code);
+
+    return Py_BuildValue("l", exit_code);
 }
 
 static PyMethodDef NgxMethods[]={
