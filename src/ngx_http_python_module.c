@@ -308,9 +308,9 @@ ngx_http_python_init_worker(ngx_cycle_t *cycle)
 
     //pmcf = ngx_http_cycle_get_module_main_conf(cycle, ngx_http_python_module);
 
-    Py_Initialize();
-
     initNgx();
+
+    Py_Initialize();
 
     return NGX_OK;
 }

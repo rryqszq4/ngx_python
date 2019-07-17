@@ -31,8 +31,10 @@ ngx_echo(PyObject *self, PyObject *args)
     PyObject *s;
     s = PyObject_Str(object);
 
-    ns.len = PyBytes_GET_SIZE(s);
-    ns.data = (u_char *)PyBytes_AS_STRING(s);
+    if (PyBytes_Check(s)) {
+        ns.len = PyBytes_GET_SIZE(s);
+        ns.data = (u_char *)PyBytes_AS_STRING(s);
+    }
 
     if (ctx->rputs_chain == NULL){
         chain = ngx_pcalloc(r->pool, sizeof(ngx_http_python_rputs_chain_list_t));
@@ -151,28 +153,44 @@ static PyMethodDef NgxMethods[]={
     {NULL, NULL, 0, NULL}
 };
 
+static PyModuleDef NgxModule = {
+    PyModuleDef_HEAD_INIT, "ngx", NULL, -1, NgxMethods,
+    NULL, NULL, NULL, NULL
+};
+
+static PyObject*
+PyInit_ngx(void)
+{
+    PyObject    *m;
+    m = PyModule_Create(&NgxModule);
+    if ( !m ) {
+        return NULL;
+    }
+
+    PyModule_AddIntConstant(m, "OK", NGX_OK);
+    PyModule_AddIntConstant(m, "ERROR", NGX_ERROR);
+    PyModule_AddIntConstant(m, "AGAIN", NGX_AGAIN);
+    PyModule_AddIntConstant(m, "BUSY", NGX_BUSY);
+    PyModule_AddIntConstant(m, "DONE", NGX_DONE);
+    PyModule_AddIntConstant(m, "DECLINED", NGX_DECLINED);
+    PyModule_AddIntConstant(m, "ABORT", NGX_ABORT);
+
+    PyModule_AddIntConstant(m, "LOG_STDERR", NGX_LOG_STDERR);
+    PyModule_AddIntConstant(m, "LOG_EMERG", NGX_LOG_EMERG);
+    PyModule_AddIntConstant(m, "LOG_ALERT", NGX_LOG_ALERT);
+    PyModule_AddIntConstant(m, "LOG_CRIT", NGX_LOG_CRIT);
+    PyModule_AddIntConstant(m, "LOG_ERR", NGX_LOG_ERR);
+    PyModule_AddIntConstant(m, "LOG_WARN", NGX_LOG_WARN);
+    PyModule_AddIntConstant(m, "LOG_NOTICE", NGX_LOG_NOTICE);
+    PyModule_AddIntConstant(m, "LOG_INFO", NGX_LOG_INFO);
+    PyModule_AddIntConstant(m, "LOG_DEBUG", NGX_LOG_DEBUG);
+
+    return m;
+}
+
 void initNgx()
 {
-    PyObject    *mo;
 
-    mo = Py_InitModule("ngx",NgxMethods);
-
-    PyModule_AddIntConstant(mo, "OK", NGX_OK);
-    PyModule_AddIntConstant(mo, "ERROR", NGX_ERROR);
-    PyModule_AddIntConstant(mo, "AGAIN", NGX_AGAIN);
-    PyModule_AddIntConstant(mo, "BUSY", NGX_BUSY);
-    PyModule_AddIntConstant(mo, "DONE", NGX_DONE);
-    PyModule_AddIntConstant(mo, "DECLINED", NGX_DECLINED);
-    PyModule_AddIntConstant(mo, "ABORT", NGX_ABORT);
-
-    PyModule_AddIntConstant(mo, "LOG_STDERR", NGX_LOG_STDERR);
-    PyModule_AddIntConstant(mo, "LOG_EMERG", NGX_LOG_EMERG);
-    PyModule_AddIntConstant(mo, "LOG_ALERT", NGX_LOG_ALERT);
-    PyModule_AddIntConstant(mo, "LOG_CRIT", NGX_LOG_CRIT);
-    PyModule_AddIntConstant(mo, "LOG_ERR", NGX_LOG_ERR);
-    PyModule_AddIntConstant(mo, "LOG_WARN", NGX_LOG_WARN);
-    PyModule_AddIntConstant(mo, "LOG_NOTICE", NGX_LOG_NOTICE);
-    PyModule_AddIntConstant(mo, "LOG_INFO", NGX_LOG_INFO);
-    PyModule_AddIntConstant(mo, "LOG_DEBUG", NGX_LOG_DEBUG);
+    PyImport_AppendInittab("ngx", &PyInit_ngx);
 
 }
