@@ -28,12 +28,15 @@ ngx_echo(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    PyObject *s;
-    s = PyObject_Str(object);
-
-    if (PyBytes_Check(s)) {
-        ns.len = PyBytes_GET_SIZE(s);
-        ns.data = (u_char *)PyBytes_AS_STRING(s);
+    if (PyBytes_Check(object)) {
+        ns.len = PyBytes_GET_SIZE(object);
+        ns.data = (u_char *)PyBytes_AS_STRING(object);
+    }else if (PyUnicode_Check(object)){
+        ns.len = PyUnicode_GET_SIZE(object);
+        ns.data = (u_char *)PyUnicode_AsUTF8(object);
+    }else {
+        ns.data = (u_char *)" ";
+        ns.len = 1;
     }
 
     if (ctx->rputs_chain == NULL){
@@ -86,11 +89,16 @@ ngx_print(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    PyObject *s;
-    s = PyObject_Str(object);
-
-    ns.len = PyBytes_GET_SIZE(s);
-    ns.data = (u_char *)PyBytes_AS_STRING(s);
+    if (PyBytes_Check(object)) {
+        ns.len = PyBytes_GET_SIZE(object);
+        ns.data = (u_char *)PyBytes_AS_STRING(object);
+    }else if (PyUnicode_Check(object)){
+        ns.len = PyUnicode_GET_SIZE(object);
+        ns.data = (u_char *)PyUnicode_AsUTF8(object);
+    }else {
+        ns.data = (u_char *)" ";
+        ns.len = 1;
+    }
 
     if (ctx->rputs_chain == NULL){
         chain = ngx_pcalloc(r->pool, sizeof(ngx_http_python_rputs_chain_list_t));
@@ -148,7 +156,7 @@ ngx_exit(PyObject *self, PyObject *args)
 
 static PyMethodDef NgxMethods[]={
     {"echo", ngx_echo, METH_VARARGS, "ngx.echo"},
-    {"_print", ngx_print, METH_VARARGS, "ngx._print"},
+    {"print", ngx_print, METH_VARARGS, "ngx.print"},
     {"exit", ngx_exit, METH_VARARGS, "ngx.exit"},
     {NULL, NULL, 0, NULL}
 };
