@@ -10,6 +10,8 @@
 
 #include "ngx_http_python_handler.h"
 #include "ngx_http_python_module.h"
+#include "ngx_http_python_util.h"
+#include "ngx_http_python_fnthread.h"
 
 ngx_int_t ngx_http_python_rewrite_handler(ngx_http_request_t *r)
 {
@@ -429,7 +431,7 @@ ngx_http_python_content_inline_handler(ngx_http_request_t *r)
 {
 
     //ngx_http_python_main_conf_t *pmcf = ngx_http_get_module_main_conf(r, ngx_http_python_module);
-    ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
+    //ngx_http_python_loc_conf_t *plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
 
     ngx_int_t rc;
     ngx_http_python_ctx_t *ctx;
@@ -449,7 +451,24 @@ ngx_http_python_content_inline_handler(ngx_http_request_t *r)
 
     ngx_python_request = r;
 
-    PyRun_SimpleString(plcf->content_inline_code->code.string);
+    /*char *run_str = str_replace((char *)plcf->content_inline_code->code.string, "\t", "");
+    printf("%s\n", run_str);
+    //char *run_str1 = str_replace(run_str, "    ", "");
+    //printf("%s\n", run_str1);
+    char *run_str2 = str_replace(run_str, "\n", "\n    ");
+    printf("%s\n", run_str2);
+
+    PyRun_SimpleString(run_str);
+
+    PyObject *o1 = PyUnicode_FromString("__main__");
+    PyObject *m1 = PyImport_Import(o1);
+    PyObject *func1 = PyObject_GetAttrString(m1, "test");
+    if (!PyCallable_Check(func1)){
+        printf("call_func: expected a callable\n");
+    }else {
+        PyObject_CallFunction(func1,"");
+    }*/
+    ngx_http_python_fnthread_content_inline_routine(r);
 
     ngx_http_python_rputs_chain_list_t *chain;
     

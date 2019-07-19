@@ -35,6 +35,10 @@ typedef struct ngx_http_python_ctx_t {
     unsigned request_body_more : 1;
 
     ngx_int_t exit_code;
+
+    unsigned content_phase : 1;
+
+    ngx_int_t phase_status;
     
 } ngx_http_python_ctx_t;
 
