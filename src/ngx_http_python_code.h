@@ -22,6 +22,7 @@ typedef struct ngx_http_python_code_t {
         char *string;
     } code;
     code_type_t code_type;
+    ngx_str_t code_id;
 } ngx_http_python_code_t;
 
 typedef struct ngx_http_python_rputs_chain_list_t {

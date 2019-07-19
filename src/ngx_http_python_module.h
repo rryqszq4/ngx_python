@@ -41,6 +41,9 @@ typedef struct {
     ngx_int_t (*access_handler)(ngx_http_request_t *r);
     ngx_int_t (*content_handler)(ngx_http_request_t *r);
     ngx_int_t (*log_handler)(ngx_http_request_t *r);
+
+    unsigned enabled_content_inline_compile:1;
+
 } ngx_http_python_loc_conf_t;
 
 #endif

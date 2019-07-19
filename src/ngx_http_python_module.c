@@ -274,6 +274,8 @@ ngx_http_python_create_loc_conf(ngx_conf_t *cf)
     plcf->log_file_code = NGX_CONF_UNSET_PTR;
     plcf->log_inline_code = NGX_CONF_UNSET_PTR;
 
+    plcf->enabled_content_inline_compile = 0;
+
     return plcf;
 }
 
