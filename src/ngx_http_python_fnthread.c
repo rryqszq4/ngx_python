@@ -2,6 +2,8 @@
  *    Copyright(c) 2016-2019 rryqszq4
  */
 
+#include <Python.h>
+
 #include "ngx_http_python_module.h"
 #include "ngx_http_python_fnthread.h"
 #include "ngx_http_python_util.h"

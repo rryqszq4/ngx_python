@@ -9,8 +9,6 @@
 #include <ngx_http.h>
 #include <nginx.h>
 
-#include <Python.h>
-
 void ngx_http_python_fnthread_content_inline_routine(ngx_http_request_t *r);
 
 void ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix);
