@@ -74,6 +74,7 @@ ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix)
 	plcf = ngx_http_get_module_loc_conf(r, ngx_http_python_module);
 
 	char *f_name = malloc(strlen(func_prefix)+1 + 32);
+	memset(f_name, 0, strlen(func_prefix)+1 + 32);
 	if (strcmp(func_prefix, "ngx_content") == 0) {
         //func_name.len = ngx_sprintf((u_char *)f_name, "%s_%V", func_prefix, &(plcf->content_inline_code->code_id)) - func_name.data;
         strncat(f_name, func_prefix, strlen(func_prefix));
