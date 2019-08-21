@@ -43,22 +43,25 @@ ngx_http_python_fnthread_content_inline_routine(ngx_http_request_t *r)
 	ctx->phase_status = NGX_OK;
 	ngx_python_request = r;
 
-	tmp_str = str_replace((char *)plcf->content_inline_code->code.string, "\t", "");
-	tmp_str2 = str_replace(tmp_str, "\n", "\n    ");
-
-	inline_code.data = (u_char *)malloc(sizeof("def ngx_content_():")-1 + ngx_strlen(tmp_str2) + 32);
-
-	inline_code.len = ngx_sprintf(inline_code.data, "def ngx_content_%V():\n%*s", 
-                                        &(plcf->content_inline_code->code_id), 
-                                        ngx_strlen(tmp_str2),
-                                        tmp_str2
-                                    ) - inline_code.data;
-
 	if (!plcf->enabled_content_inline_compile) {
+		tmp_str = str_replace((char *)plcf->content_inline_code->code.string, "\t", "");
+		tmp_str2 = str_replace(tmp_str, "\n", "\n    ");
+
+		inline_code.data = (u_char *)ngx_pnalloc(r->pool, sizeof("def ngx_content_():")-1 + ngx_strlen(tmp_str2) + 32);
+
+		inline_code.len = ngx_sprintf(inline_code.data, "def ngx_content_%V():\n%*s", 
+	                                        &(plcf->content_inline_code->code_id), 
+	                                        ngx_strlen(tmp_str2),
+	                                        tmp_str2
+	                                    ) - inline_code.data;
+
+		free(tmp_str); tmp_str=NULL;
+		free(tmp_str2); tmp_str=NULL;
+		
 		PyRun_SimpleString((char *)inline_code.data);
 		plcf->enabled_content_inline_compile = 1;
-		printf("%s, %d\n", inline_code.data, (int)strlen((char *)inline_code.data));
-		free(inline_code.data);
+		//printf("%s, %d\n", inline_code.data, (int)strlen((char *)inline_code.data));
+		//free(inline_code.data);
 	}
 
 	ngx_http_python_fnthread_create(r, "ngx_content");
@@ -80,7 +83,7 @@ ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix)
         strncat(f_name, (char *)plcf->content_inline_code->code_id.data, 32);
     }
 
-    printf("%s, %d\n", (char *)f_name, (int)strlen((char *)f_name));
+    //printf("%s, %d\n", (char *)f_name, (int)strlen((char *)f_name));
 
     fn_name = PyUnicode_FromString("__main__");
 	module_name = PyImport_Import(fn_name);
@@ -94,6 +97,7 @@ ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix)
 
 	result = PyObject_CallFunction(fn,"");
 
+	Py_DECREF(module_name);
 	Py_DECREF(fn);
 	Py_DECREF(result);
 	free(f_name);
