@@ -1,6 +1,6 @@
 ngx_python
 ==========
-[![Build Status](https://travis-ci.org/rryqszq4/ngx_python.svg?branch=master)](https://travis-ci.org/rryqszq4/ngx_python)
+[![Build Status](https://travis-ci.com/rryqszq4/ngx_python.svg?branch=master)](https://travis-ci.com/rryqszq4/ngx_python)
 [![license](https://img.shields.io/badge/license-BSD--2--Clause-blue.svg)](https://github.com/rryqszq4/ngx_python/blob/master/LICENSE)
 
 [ngx_python](https://github.com/rryqszq4/ngx_python) - Embedded python for nginx-module. Another name is python-nginx-module.
