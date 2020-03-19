@@ -49,7 +49,7 @@ ngx_http_python_fnthread_content_inline_routine(ngx_http_request_t *r)
 
 		inline_code.data = (u_char *)ngx_pnalloc(r->pool, sizeof("def ngx_content_():")-1 + ngx_strlen(tmp_str2) + 32);
 
-		inline_code.len = ngx_sprintf(inline_code.data, "def ngx_content_%V():\n%*s", 
+		inline_code.len = ngx_sprintf(inline_code.data, "def ngx_content_%V():\n%*s\n", 
 	                                        &(plcf->content_inline_code->code_id), 
 	                                        ngx_strlen(tmp_str2),
 	                                        tmp_str2
