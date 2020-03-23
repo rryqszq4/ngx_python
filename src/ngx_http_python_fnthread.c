@@ -55,6 +55,8 @@ ngx_http_python_fnthread_content_inline_routine(ngx_http_request_t *r)
 	                                        tmp_str2
 	                                    ) - inline_code.data;
 
+		//printf("%s\n", tmp_str2);
+
 		free(tmp_str); tmp_str=NULL;
 		free(tmp_str2); tmp_str=NULL;
 		
@@ -89,13 +91,25 @@ ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix)
 	module_name = PyImport_Import(fn_name);
 	Py_DECREF(fn_name);
 	fn = PyObject_GetAttrString(module_name, (char *)f_name);
-	
-	if (!PyCallable_Check(fn)){
+
+
+	/*if (!PyCallable_Check(fn)){
 	    printf("call_func: expected a callable\n");
+
 	    return ;
-	}
+	}*/
 
 	result = PyObject_CallFunction(fn,"");
+
+	if ( PyGen_Check(result) ) {
+		//PyObject_Print(result, stdout, 0);
+		PyObject *res = PyObject_CallMethod(result, "__next__", "");
+		//PyObject_Print(res, stdout, 0);
+		
+		// todo ngx_again
+	}else {
+		// todo ngx_ok
+	}
 
 	Py_DECREF(module_name);
 	Py_DECREF(fn);
