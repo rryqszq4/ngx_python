@@ -7,6 +7,8 @@
 #ifndef NGX_HTTP_PYTHON_CODE_H
 #define NGX_HTTP_PYTHON_CODE_H
 
+#include <Python.h>
+
 #include <ngx_http.h>
 
 extern ngx_http_request_t *ngx_python_request;
@@ -39,6 +41,8 @@ typedef struct ngx_http_python_ctx_t {
     unsigned content_phase : 1;
 
     ngx_int_t phase_status;
+
+    PyObject *generator_object;
     
 } ngx_http_python_ctx_t;
 
