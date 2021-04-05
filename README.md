@@ -7,7 +7,7 @@ ngx_python
 
 Requirement
 -----------
-- python 2.7.*
+- python 3.*
 - nginx-1.6.3+ 
 
 Installation
@@ -19,7 +19,7 @@ $ wget 'http://nginx.org/download/nginx-1.6.3.tar.gz'
 $ tar -zxvf nginx-1.6.3.tar.gz
 $ cd nginx-1.6.3
 
-$ export PYTHON_INC=/path/to/python/include/python2.7
+$ export PYTHON_INC=/path/to/python/include/python3.7m
 $ export PYTHON_BIN=/path/to/python/bin
 
 $ ./configure --user=www --group=www \
