@@ -28,16 +28,9 @@ ngx_echo(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    if (PyBytes_Check(object)) {
-        ns.len = PyBytes_GET_SIZE(object);
-        ns.data = (u_char *)PyBytes_AS_STRING(object);
-    }else if (PyUnicode_Check(object)){
-        ns.len = PyUnicode_GET_SIZE(object);
-        ns.data = (u_char *)PyUnicode_AsUTF8(object);
-    }else {
-        ns.data = (u_char *)" ";
-        ns.len = 1;
-    }
+    PyObject *s;
+    s = PyObject_Str(object);
+    ns.data = (u_char *)PyUnicode_AsUTF8AndSize(s, (Py_ssize_t *)&ns.len);
 
     if (ctx->rputs_chain == NULL){
         chain = ngx_pcalloc(r->pool, sizeof(ngx_http_python_rputs_chain_list_t));
@@ -89,16 +82,9 @@ ngx_print(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    if (PyBytes_Check(object)) {
-        ns.len = PyBytes_GET_SIZE(object);
-        ns.data = (u_char *)PyBytes_AS_STRING(object);
-    }else if (PyUnicode_Check(object)){
-        ns.len = PyUnicode_GET_SIZE(object);
-        ns.data = (u_char *)PyUnicode_AsUTF8(object);
-    }else {
-        ns.data = (u_char *)" ";
-        ns.len = 1;
-    }
+    PyObject *s;
+    s = PyObject_Str(object);
+    ns.data = (u_char *)PyUnicode_AsUTF8AndSize(s, (Py_ssize_t *)&ns.len);
 
     if (ctx->rputs_chain == NULL){
         chain = ngx_pcalloc(r->pool, sizeof(ngx_http_python_rputs_chain_list_t));
