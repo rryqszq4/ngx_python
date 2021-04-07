@@ -90,8 +90,8 @@ ngx_http_python_fnthread_create(ngx_http_request_t *r, char *func_prefix)
     char *f_name = malloc(strlen(func_prefix)+1 + 32);
     memset(f_name, 0, strlen(func_prefix)+1 + 32);
     if (strcmp(func_prefix, "ngx_content") == 0) {
-        strncat(f_name, func_prefix, strlen(func_prefix));
-        strncat(f_name, "_", 1);
+        strcat(f_name, func_prefix);
+        strcat(f_name, "_");
         strncat(f_name, (char *)plcf->content_inline_code->code_id.data, 32);
     }
 
