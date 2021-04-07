@@ -47,13 +47,15 @@ ngx_http_python_fnthread_content_inline_routine(ngx_http_request_t *r)
         tmp_str = str_replace((char *)plcf->content_inline_code->code.string, "\t", "");
         tmp_str2 = str_replace(tmp_str, "\n", "\n    ");
 
-        inline_code.data = (u_char *)ngx_pnalloc(r->pool, sizeof("def ngx_content_():")-1 + ngx_strlen(tmp_str2) + 32);
+        int alloc_len = sizeof("def ngx_content_():") + 32 + 1 + ngx_strlen(tmp_str2) + 1;
+        inline_code.data = (u_char *)ngx_pnalloc(r->pool, alloc_len);
 
         inline_code.len = ngx_sprintf(inline_code.data, "def ngx_content_%V():\n%*s\n", 
                                             &(plcf->content_inline_code->code_id), 
                                             ngx_strlen(tmp_str2),
                                             tmp_str2
                                         ) - inline_code.data;
+        inline_code.data[inline_code.len] = '\0';
 
         //printf("%s\n", tmp_str2);
 
